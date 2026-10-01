@@ -1,0 +1,26 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.aider*
+
+# Python virtual environment
+.venv/
+
+# Aider
+.aider.tags.cache.v4/
+.aider.input.history
+
+# Devin / agent metadata
+.devin/
+
+# Temporary Office files
+~$*
+
+# Video captures / demos
+*.avi
+video_final.mp4
+
+
+# OS / editor junk
+.DS_Store
+Thumbs.db

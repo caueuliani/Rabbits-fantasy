@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://duupk3kyynn2t"]
+
+[ext_resource type="Texture2D" uid="uid://c3o5y1qyi2107" path="res://assets/characters/Gray-Espada-Frente.png" id="1_rp718"]
+[ext_resource type="Script" uid="uid://cqo345gjyo4ad" path="res://scripts/player.gd" id="1_yewv4"]
+[ext_resource type="Texture2D" uid="uid://cjy0jt51b4drq" path="res://assets/characters/gray-espada-front-left-leg.png" id="2_7vyk4"]
+[ext_resource type="Texture2D" uid="uid://ctuca26jli32b" path="res://assets/characters/gray-espada-front-right-leg.png" id="3_2l4js"]
+[ext_resource type="Texture2D" uid="uid://dylr2432hsa2a" path="res://assets/characters/Gray-Espada-Costa.png" id="3_atpat"]
+[ext_resource type="Texture2D" uid="uid://dc7mkvbwpxlxp" path="res://assets/characters/gray-espada-back-left-leg.png" id="4_jk2m4"]
+[ext_resource type="Texture2D" uid="uid://nmnlk6crjld7" path="res://assets/characters/Gray-Espada-Esquerda.png" id="4_kqtwu"]
+[ext_resource type="Texture2D" uid="uid://bdffgowwfkjqh" path="res://assets/characters/Gray-Espada-Direita.png" id="5_6eyoc"]
+[ext_resource type="Texture2D" uid="uid://bk3qucaj486qn" path="res://assets/characters/gray-espada-back-right-leg.png" id="5_xhtjm"]
+[ext_resource type="Texture2D" uid="uid://dug47sbsyr2qa" path="res://assets/characters/gray-espada-left-left-leg.png" id="6_k4v7y"]
+[ext_resource type="Texture2D" uid="uid://dpsww8jvd5gx" path="res://assets/characters/gray-espada-left-right-leg.png" id="7_xrqxk"]
+[ext_resource type="Texture2D" uid="uid://duir2b847s75" path="res://assets/characters/gray-espada-right-left-leg.png" id="8_g66nw"]
+[ext_resource type="Texture2D" uid="uid://c55vxeqcb7tre" path="res://assets/characters/gray-espada-right-right-leg.png" id="9_rpnd8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_asvcc"]
+radius = 9.0
+height = 20.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1394630769]
+motion_mode = 1
+script = ExtResource("1_yewv4")
+idle_front = ExtResource("1_rp718")
+idle_back = ExtResource("3_atpat")
+idle_left = ExtResource("4_kqtwu")
+idle_right = ExtResource("5_6eyoc")
+walk_front_a = ExtResource("2_7vyk4")
+walk_front_b = ExtResource("3_2l4js")
+walk_back_a = ExtResource("4_jk2m4")
+walk_back_b = ExtResource("5_xhtjm")
+walk_left_a = ExtResource("6_k4v7y")
+walk_left_b = ExtResource("7_xrqxk")
+walk_right_a = ExtResource("8_g66nw")
+walk_right_b = ExtResource("9_rpnd8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1837360731]
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("1_rp718")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=268219586]
+position = Vector2(0, 18)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_asvcc")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=494390636]

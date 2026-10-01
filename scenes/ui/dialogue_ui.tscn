@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://dialogue_ui"]
+
+[ext_resource type="Script" path="res://scripts/dialogue_ui.gd" id="1_dialogue_ui"]
+
+[node name="DialogueUI" type="CanvasLayer"]
+script = ExtResource("1_dialogue_ui")
+
+[node name="DialogueBox" type="ColorRect" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -600.0
+offset_top = -200.0
+offset_right = -50.0
+offset_bottom = -50.0
+color = Color(0.1, 0.1, 0.1, 0.9)
+
+[node name="SpeakerLabel" type="Label" parent="DialogueBox"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -275.0
+offset_top = 10.0
+offset_right = 275.0
+offset_bottom = 35.0
+text = "Speaker Name"
+horizontal_alignment = 1
+
+[node name="TextLabel" type="RichTextLabel" parent="DialogueBox"]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 40.0
+offset_right = -10.0
+offset_bottom = -60.0
+bbcode_enabled = true
+text = "Dialogue text goes here..."
+
+[node name="ChoicesContainer" type="VBoxContainer" parent="DialogueBox"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -50.0
+offset_right = -10.0
+offset_bottom = -10.0
+
+[node name="ContinuePrompt" type="Label" parent="DialogueBox"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -40.0
+offset_right = -10.0
+offset_bottom = -10.0
+text = "Pressione E para continuar"
+horizontal_alignment = 1
+visible = false

@@ -1,0 +1,230 @@
+[gd_scene format=3 uid="uid://cave"]
+
+[ext_resource type="Script" uid="uid://c30n8xp63h8m2" path="res://scripts/npc.gd" id="1_npc"]
+[ext_resource type="Script" uid="uid://bk4ie0ic076g0" path="res://scripts/glitch_sensitive.gd" id="2_glitch_sensitive"]
+[ext_resource type="Script" uid="uid://bee8rkvue6ios" path="res://scripts/area_trigger.gd" id="3_area_trigger"]
+[ext_resource type="Texture2D" uid="uid://wv0lp67ytbu5" path="res://assets/mapas/Caverna (que talvez eu use) rabbits.png" id="4_background"]
+
+[sub_resource type="RectangleShape2D" id="collision_shape"]
+size = Vector2(32, 32)
+
+[node name="Cave" type="Node2D"]
+
+# Cenário da caverna
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("4_background")
+position = Vector2(561, 701)
+scale = Vector2(1.0, 1.0)
+
+# Colisões da caverna
+[node name="Walls" type="StaticBody2D" parent="."]
+
+# Paredes da caverna
+[node name="CaveNorthWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 100)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)
+
+[node name="CaveSouthWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 1300)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)
+
+[node name="CaveEastWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1050, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 20)
+
+[node name="CaveWestWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(72, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 20)
+
+# Formações rochosas internas
+[node name="RockFormation1" type="CollisionShape2D" parent="Walls"]
+position = Vector2(300, 400)
+shape = SubResource("collision_shape")
+scale = Vector2(3, 2)
+
+[node name="RockFormation2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(800, 900)
+shape = SubResource("collision_shape")
+scale = Vector2(2, 3)
+
+# Água na caverna
+[node name="CaveWater" type="Area2D" parent="."]
+position = Vector2(200, 1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaveWater"]
+shape = SubResource("collision_shape")
+scale = Vector2(3, 2)
+
+[node name="Sprite2D" type="ColorRect" parent="CaveWater"]
+offset_left = -48.0
+offset_top = -32.0
+offset_right = 48.0
+offset_bottom = 32.0
+color = Color(0.1, 0.2, 0.4, 0.6)
+
+[node name="Label" type="Label" parent="CaveWater"]
+offset_left = -30.0
+offset_top = -50.0
+offset_right = 30.0
+offset_bottom = -30.0
+text = "Água"
+horizontal_alignment = 1
+
+# Entrada da caverna
+[node name="CaveEntrance" type="Area2D" parent="."]
+position = Vector2(561, 1250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaveEntrance"]
+shape = SubResource("collision_shape")
+scale = Vector2(5, 1)
+
+[node name="Label" type="Label" parent="CaveEntrance"]
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+text = "Saída da Caverna"
+horizontal_alignment = 1
+
+# Caminho bloqueado por desabamento
+[node name="BlockedPath" type="StaticBody2D" parent="."]
+position = Vector2(800, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockedPath"]
+shape = SubResource("collision_shape")
+scale = Vector2(3, 2)
+
+[node name="Sprite2D" type="ColorRect" parent="BlockedPath"]
+offset_left = -48.0
+offset_top = -32.0
+offset_right = 48.0
+offset_bottom = 32.0
+color = Color(0.3, 0.3, 0.3, 1)
+
+[node name="Label" type="Label" parent="BlockedPath"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -30.0
+text = "Caminho Bloqueado"
+horizontal_alignment = 1
+
+# Passagem alternativa (só visível durante Glitch)
+[node name="HiddenPassage" type="Area2D" parent="."]
+position = Vector2(800, 400)
+script = ExtResource("2_glitch_sensitive")
+is_hidden = true
+reveal_on_glitch = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenPassage"]
+shape = SubResource("collision_shape")
+scale = Vector2(2, 1)
+
+[node name="Sprite2D" type="ColorRect" parent="HiddenPassage"]
+offset_left = -32.0
+offset_top = -16.0
+offset_right = 32.0
+offset_bottom = 16.0
+color = Color(0.2, 0.4, 0.3, 0.3)
+
+[node name="Label" type="Label" parent="HiddenPassage"]
+offset_left = -40.0
+offset_top = -35.0
+offset_right = 40.0
+offset_bottom = -15.0
+text = "Passagem Secreta"
+horizontal_alignment = 1
+
+# Theodor (NPC objetivo da missão)
+[node name="Theodor" type="CharacterBody2D" parent="."]
+position = Vector2(900, 300)
+script = ExtResource("1_npc")
+npc_name = "Theodor"
+dialogue_id = "theodor_scared"
+
+[node name="Sprite2D" type="ColorRect" parent="Theodor"]
+offset_left = -12.0
+offset_top = -24.0
+offset_right = 12.0
+offset_bottom = 24.0
+color = Color(0.8, 0.6, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Theodor"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionArea" type="Area2D" parent="Theodor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Theodor/InteractionArea"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionPrompt" type="Label" parent="Theodor"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -30.0
+text = "Pressione E"
+horizontal_alignment = 1
+
+# Pistas na caverna
+[node name="Footprints" type="Area2D" parent="."]
+position = Vector2(600, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Footprints"]
+shape = SubResource("collision_shape")
+
+[node name="Sprite2D" type="ColorRect" parent="Footprints"]
+offset_left = -15.0
+offset_top = -10.0
+offset_right = 15.0
+offset_bottom = 10.0
+color = Color(0.4, 0.3, 0.2, 0.5)
+
+[node name="Label" type="Label" parent="Footprints"]
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = -10.0
+text = "Pegadas"
+horizontal_alignment = 1
+
+# Área para usar magia (ativar Glitch)
+[node name="MagicTrigger" type="Area2D" parent="."]
+position = Vector2(700, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MagicTrigger"]
+shape = SubResource("collision_shape")
+scale = Vector2(2, 1)
+
+[node name="Label" type="Label" parent="MagicTrigger"]
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+text = "Tente usar magia aqui"
+horizontal_alignment = 1
+
+# Crystal de energia (decorativo, relacionado ao Glitch)
+[node name="EnergyCrystal" type="Area2D" parent="."]
+position = Vector2(400, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnergyCrystal"]
+shape = SubResource("collision_shape")
+
+[node name="Sprite2D" type="ColorRect" parent="EnergyCrystal"]
+offset_left = -15.0
+offset_top = -25.0
+offset_right = 15.0
+offset_bottom = 25.0
+color = Color(0.5, 0.2, 0.8, 0.7)
+
+[node name="Label" type="Label" parent="EnergyCrystal"]
+offset_left = -30.0
+offset_top = -45.0
+offset_right = 30.0
+offset_bottom = -25.0
+text = "Cristal de Energia"
+horizontal_alignment = 1

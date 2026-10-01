@@ -1,0 +1,149 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://shva1iyjkpys" path="res://scripts/player_controller.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://c30n8xp63h8m2" path="res://scripts/npc.gd" id="2_npc"]
+[ext_resource type="Script" uid="uid://bee8rkvue6ios" path="res://scripts/area_trigger.gd" id="3_area_trigger"]
+[ext_resource type="Texture2D" uid="uid://d0ks6xy60sops" path="res://assets/mapas/castelo-area de treino rabbits.png" id="4_background"]
+
+[sub_resource type="RectangleShape2D" id="collision_shape"]
+size = Vector2(32, 32)
+
+[node name="TrainingGround" type="Node2D"]
+
+# Cenário do castelo/área de treino
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("4_background")
+position = Vector2(561, 701)  # Centro da imagem (1122x1402)
+scale = Vector2(1.0, 1.0)
+
+# Colisões do cenário (paredes, obstáculos)
+[node name="Walls" type="StaticBody2D" parent="."]
+
+# Parede norte
+[node name="NorthWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 100)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)  # Larga e fina
+
+# Parede sul
+[node name="SouthWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 1300)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)
+
+# Parede leste
+[node name="EastWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1050, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 20)
+
+# Parede oeste
+[node name="WestWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(72, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 20)
+
+# Alvos de treinamento
+[node name="TrainingTarget1" type="Area2D" parent="."]
+position = Vector2(700, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrainingTarget1"]
+shape = SubResource("collision_shape")
+
+[node name="Sprite2D" type="ColorRect" parent="TrainingTarget1"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="TrainingTarget2" type="Area2D" parent="."]
+position = Vector2(400, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrainingTarget2"]
+shape = SubResource("collision_shape")
+
+[node name="Sprite2D" type="ColorRect" parent="TrainingTarget2"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+# NPC Nox
+[node name="Nox" type="CharacterBody2D" parent="."]
+position = Vector2(300, 600)
+script = ExtResource("2_npc")
+npc_name = "Nox"
+dialogue_id = "nox_tutorial_1"
+
+[node name="Sprite2D" type="ColorRect" parent="Nox"]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = 32.0
+color = Color(0.2, 0.4, 0.8, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Nox"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionArea" type="Area2D" parent="Nox"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Nox/InteractionArea"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionPrompt" type="Label" parent="Nox"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -30.0
+text = "Pressione E"
+horizontal_alignment = 1
+
+# NPC Celeste
+[node name="Celeste" type="CharacterBody2D" parent="."]
+position = Vector2(800, 600)
+script = ExtResource("2_npc")
+npc_name = "Celeste"
+dialogue_id = "celeste_tutorial_movement"
+
+[node name="Sprite2D" type="ColorRect" parent="Celeste"]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = 32.0
+color = Color(0.8, 0.4, 0.2, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Celeste"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionArea" type="Area2D" parent="Celeste"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Celeste/InteractionArea"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionPrompt" type="Label" parent="Celeste"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -30.0
+text = "Pressione E"
+horizontal_alignment = 1
+
+# Área de transição para o castelo
+[node name="CastleTransition" type="Area2D" parent="."]
+position = Vector2(561, 1200)
+script = ExtResource("3_area_trigger")
+trigger_id = "to_castle_garden"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CastleTransition"]
+shape = SubResource("collision_shape")
+scale = Vector2(5, 1)
+
+[node name="Label" type="Label" parent="CastleTransition"]
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+text = "Jardim do Castelo"
+horizontal_alignment = 1

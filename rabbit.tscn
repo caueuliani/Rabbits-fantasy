@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://mgu80itfh5w4"]
+
+[ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_player"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nk6u7"]
+size = Vector2(32, 32)
+
+[node name="Rabbit" type="Node2D" unique_id=434581943]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1226140361]
+script = ExtResource("1_player")
+
+# Sprites com arco
+[node name="BowFront" type="Sprite2D" parent="Player"]
+visible = false
+
+[node name="BowBack" type="Sprite2D" parent="Player"]
+visible = false
+
+[node name="BowLeft" type="Sprite2D" parent="Player"]
+visible = false
+
+[node name="BowRight" type="Sprite2D" parent="Player"]
+visible = false
+
+# Sprites com espada
+[node name="SwordFront" type="Sprite2D" parent="Player"]
+visible = false
+
+[node name="SwordBack" type="Sprite2D" parent="Player"]
+visible = false
+
+[node name="SwordLeft" type="Sprite2D" parent="Player"]
+visible = false
+
+[node name="SwordRight" type="Sprite2D" parent="Player"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1487945479]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_nk6u7")
+
+[node name="AttackArea" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackArea"]
+shape = SubResource("RectangleShape2D_nk6u7")
+
+[node name="MagicArea" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/MagicArea"]
+shape = SubResource("RectangleShape2D_nk6u7")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=341855215]
+position = Vector2(0, 0)
+position_smoothing_enabled = true

@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://d0scff6yod8go"]
+
+[ext_resource type="Texture2D" uid="uid://d0ks6xy60sops" path="res://assets/mapas/castelo-area de treino rabbits.png" id="1_background"]
+[ext_resource type="PackedScene" uid="uid://mgu80itfh5w4" path="res://rabbit.tscn" id="2_player"]
+
+[sub_resource type="RectangleShape2D" id="collision_shape"]
+size = Vector2(32, 32)
+
+[node name="MainLevel" type="Node2D" unique_id=692512944]
+
+# Cenário atualizado com nova imagem
+[node name="scenario" type="Sprite2D" parent="." unique_id=114690539]
+position = Vector2(561, 701)
+scale = Vector2(1.0, 1.0)
+texture = ExtResource("1_background")
+
+# Colisões básicas do cenário
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="NorthWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 100)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)
+
+[node name="SouthWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 1300)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)
+
+[node name="EastWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1050, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 20)
+
+[node name="WestWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(72, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 20)
+
+[node name="Rabbit" parent="." unique_id=434581943 instance=ExtResource("2_player")]
+position = Vector2(561, 701)

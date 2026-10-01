@@ -1,0 +1,285 @@
+[gd_scene format=3 uid="uid://forest"]
+
+[ext_resource type="Script" uid="uid://dlvnn6x2fcurq" path="res://scripts/enemy.gd" id="1_enemy"]
+[ext_resource type="Script" uid="uid://c30n8xp63h8m2" path="res://scripts/npc.gd" id="2_npc"]
+[ext_resource type="Script" uid="uid://bee8rkvue6ios" path="res://scripts/area_trigger.gd" id="3_area_trigger"]
+[ext_resource type="Texture2D" uid="uid://cwon5iq6582tw" path="res://assets/mapas/floresta rabbits.png" id="4_background"]
+
+[sub_resource type="RectangleShape2D" id="collision_shape"]
+size = Vector2(32, 32)
+
+[node name="Forest" type="Node2D"]
+
+# Cenário da floresta
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("4_background")
+position = Vector2(561, 701)
+scale = Vector2(1.0, 1.0)
+
+# Colisões da floresta
+[node name="Walls" type="StaticBody2D" parent="."]
+
+# Limites da floresta
+[node name="NorthLimit" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 50)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)
+
+[node name="SouthLimit" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 1350)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)
+
+[node name="EastLimit" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1080, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 22)
+
+[node name="WestLimit" type="CollisionShape2D" parent="Walls"]
+position = Vector2(42, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 22)
+
+# Árvores como obstáculos (colisões)
+[node name="TreeObstacle1" type="CollisionShape2D" parent="Walls"]
+position = Vector2(200, 300)
+shape = SubResource("collision_shape")
+scale = Vector2(2, 2)
+
+[node name="TreeObstacle2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(800, 400)
+shape = SubResource("collision_shape")
+scale = Vector2(2, 2)
+
+[node name="TreeObstacle3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(400, 900)
+shape = SubResource("collision_shape")
+scale = Vector2(2, 2)
+
+[node name="TreeObstacle4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(700, 1000)
+shape = SubResource("collision_shape")
+scale = Vector2(2, 2)
+
+# Água (não caminhável)
+[node name="WaterArea" type="Area2D" parent="."]
+position = Vector2(900, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea"]
+shape = SubResource("collision_shape")
+scale = Vector2(4, 3)
+
+[node name="Sprite2D" type="ColorRect" parent="WaterArea"]
+offset_left = -64.0
+offset_top = -48.0
+offset_right = 64.0
+offset_bottom = 48.0
+color = Color(0.2, 0.4, 0.8, 0.5)
+
+[node name="Label" type="Label" parent="WaterArea"]
+offset_left = -30.0
+offset_top = -60.0
+offset_right = 30.0
+offset_bottom = -40.0
+text = "Água"
+horizontal_alignment = 1
+
+# Encosta da erva-doce (local objetivo)
+[node name="HerbSlope" type="Area2D" parent="."]
+position = Vector2(700, 300)
+script = ExtResource("3_area_trigger")
+trigger_id = "herb_slope"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HerbSlope"]
+shape = SubResource("collision_shape")
+scale = Vector2(3, 2)
+
+[node name="Sprite2D" type="ColorRect" parent="HerbSlope"]
+offset_left = -48.0
+offset_top = -32.0
+offset_right = 48.0
+offset_bottom = 32.0
+color = Color(0.4, 0.6, 0.3, 0.7)
+
+[node name="Label" type="Label" parent="HerbSlope"]
+offset_left = -60.0
+offset_top = -50.0
+offset_right = 60.0
+offset_bottom = -30.0
+text = "Encosta da Erva-Doce"
+horizontal_alignment = 1
+
+# Plantas de erva-doce (pistas)
+[node name="HerbPlant1" type="Area2D" parent="."]
+position = Vector2(680, 280)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HerbPlant1"]
+shape = SubResource("collision_shape")
+
+[node name="Sprite2D" type="ColorRect" parent="HerbPlant1"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.5, 0.7, 0.4, 1)
+
+[node name="HerbPlant2" type="Area2D" parent="."]
+position = Vector2(720, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HerbPlant2"]
+shape = SubResource("collision_shape")
+
+[node name="Sprite2D" type="ColorRect" parent="HerbPlant2"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.5, 0.7, 0.4, 1)
+
+# Cesta abandonada (pista)
+[node name="AbandonedBasket" type="Area2D" parent="."]
+position = Vector2(710, 290)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AbandonedBasket"]
+shape = SubResource("collision_shape")
+
+[node name="Sprite2D" type="ColorRect" parent="AbandonedBasket"]
+offset_left = -15.0
+offset_top = -10.0
+offset_right = 15.0
+offset_bottom = 10.0
+color = Color(0.6, 0.5, 0.3, 1)
+
+[node name="Label" type="Label" parent="AbandonedBasket"]
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = -10.0
+text = "Cesta"
+horizontal_alignment = 1
+
+# Inimigos (criaturas da floresta)
+[node name="ForestCreature1" type="CharacterBody2D" parent="."]
+position = Vector2(300, 500)
+script = ExtResource("1_enemy")
+enemy_name = "Criatura da Floresta"
+max_health = 30.0
+damage = 8.0
+
+[node name="Sprite2D" type="ColorRect" parent="ForestCreature1"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.4, 0.2, 0.2, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForestCreature1"]
+shape = SubResource("collision_shape")
+
+[node name="DetectionArea" type="Area2D" parent="ForestCreature1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForestCreature1/DetectionArea"]
+shape = SubResource("collision_shape")
+
+[node name="AttackArea" type="Area2D" parent="ForestCreature1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForestCreature1/AttackArea"]
+shape = SubResource("collision_shape")
+
+[node name="ForestCreature2" type="CharacterBody2D" parent="."]
+position = Vector2(500, 800)
+script = ExtResource("1_enemy")
+enemy_name = "Criatura da Floresta"
+max_health = 30.0
+damage = 8.0
+
+[node name="Sprite2D" type="ColorRect" parent="ForestCreature2"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.4, 0.2, 0.2, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForestCreature2"]
+shape = SubResource("collision_shape")
+
+[node name="DetectionArea" type="Area2D" parent="ForestCreature2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForestCreature2/DetectionArea"]
+shape = SubResource("collision_shape")
+
+[node name="AttackArea" type="Area2D" parent="ForestCreature2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForestCreature2/AttackArea"]
+shape = SubResource("collision_shape")
+
+# Criatura incomum (mais forte)
+[node name="UnusualCreature" type="CharacterBody2D" parent="."]
+position = Vector2(650, 400)
+script = ExtResource("1_enemy")
+enemy_name = "Criatura Incomum"
+max_health = 50.0
+damage = 15.0
+
+[node name="Sprite2D" type="ColorRect" parent="UnusualCreature"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.6, 0.3, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnusualCreature"]
+shape = SubResource("collision_shape")
+
+[node name="DetectionArea" type="Area2D" parent="UnusualCreature"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnusualCreature/DetectionArea"]
+shape = SubResource("collision_shape")
+
+[node name="AttackArea" type="Area2D" parent="UnusualCreature"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnusualCreature/AttackArea"]
+shape = SubResource("collision_shape")
+
+# Abertura para a caverna
+[node name="CaveEntrance" type="Area2D" parent="."]
+position = Vector2(800, 200)
+script = ExtResource("3_area_trigger")
+trigger_id = "to_cave"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaveEntrance"]
+shape = SubResource("collision_shape")
+scale = Vector2(2, 1)
+
+[node name="Sprite2D" type="ColorRect" parent="CaveEntrance"]
+offset_left = -32.0
+offset_top = -16.0
+offset_right = 32.0
+offset_bottom = 16.0
+color = Color(0.2, 0.2, 0.3, 0.7)
+
+[node name="Label" type="Label" parent="CaveEntrance"]
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+offset_bottom = -20.0
+text = "Caverna"
+horizontal_alignment = 1
+
+# Caminho de volta para a cidade
+[node name="CityPath" type="Area2D" parent="."]
+position = Vector2(561, 1300)
+script = ExtResource("3_area_trigger")
+trigger_id = "to_aequora_city"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CityPath"]
+shape = SubResource("collision_shape")
+scale = Vector2(5, 1)
+
+[node name="Label" type="Label" parent="CityPath"]
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+text = "Voltar à Cidade"
+horizontal_alignment = 1

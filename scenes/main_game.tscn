@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://disd2smesfj4v"]
+
+[ext_resource type="Script" uid="uid://dtnjn1loj2i5j" path="res://scripts/game_manager.gd" id="1_game_manager"]
+
+[sub_resource type="RectangleShape2D" id="collision_shape"]
+size = Vector2(32, 32)
+
+[node name="MainGame" type="Node2D" unique_id=1494536852]
+position = Vector2(561, 701)
+scale = Vector2(35, 1)
+script = ExtResource("1_game_manager")
+
+[node name="Walls#SouthWall" type="CollisionShape2D" parent="." unique_id=1144465628]
+position = Vector2(561, 1300)
+scale = Vector2(35, 1)
+shape = SubResource("collision_shape")
+
+[node name="Walls#EastWall" type="CollisionShape2D" parent="." unique_id=212435777]
+position = Vector2(1050, 701)
+scale = Vector2(1, 20)
+shape = SubResource("collision_shape")
+
+[node name="Walls#WestWall" type="CollisionShape2D" parent="." unique_id=276601524]
+position = Vector2(561, 701)
+scale = Vector2(1, 20)
+shape = SubResource("collision_shape")
+
+[node name="Player#BowFront" type="Sprite2D" parent="." unique_id=1401650381]
+
+[node name="Player#BowBack" type="Sprite2D" parent="." unique_id=50909728]
+
+[node name="Player#BowLeft" type="Sprite2D" parent="." unique_id=2095039166]
+
+[node name="Player#BowRight" type="Sprite2D" parent="." unique_id=1031601896]
+
+[node name="Player#SwordFront" type="Sprite2D" parent="." unique_id=920680607]
+
+[node name="Player#SwordBack" type="Sprite2D" parent="." unique_id=1412645837]
+
+[node name="Player#SwordLeft" type="Sprite2D" parent="." unique_id=1698713354]
+
+[node name="Player#SwordRight" type="Sprite2D" parent="." unique_id=1935418836]
+
+[node name="Player#CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1420212254]
+shape = SubResource("collision_shape")
+
+[node name="Player#AttackArea" type="Area2D" parent="." unique_id=1156880136]
+
+[node name="Player_AttackArea#CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2040160906]
+shape = SubResource("collision_shape")
+
+[node name="Player#MagicArea" type="Area2D" parent="." unique_id=1295388149]
+
+[node name="Player_MagicArea#CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1929498740]
+shape = SubResource("collision_shape")
+
+[node name="Player#Camera2D" type="Camera2D" parent="." unique_id=19976839]
+position_smoothing_enabled = true
+
+[node name="UICanvas#ManaBar" type="ProgressBar" parent="." unique_id=822397683]
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 220.0
+offset_bottom = 70.0
+max_value = 50.0
+value = 50.0
+
+[node name="UICanvas#QuestDisplay" type="Label" parent="." unique_id=360274219]
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 400.0
+offset_bottom = 200.0
+text = "Missões: Nenhuma ativa"

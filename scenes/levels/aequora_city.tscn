@@ -1,0 +1,230 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://c30n8xp63h8m2" path="res://scripts/npc.gd" id="1_npc"]
+[ext_resource type="Script" uid="uid://bee8rkvue6ios" path="res://scripts/area_trigger.gd" id="2_area_trigger"]
+[ext_resource type="Texture2D" uid="uid://cmdb13tkrwt2" path="res://assets/mapas/cidade rabbits.png" id="3_background"]
+
+[sub_resource type="RectangleShape2D" id="collision_shape"]
+size = Vector2(32, 32)
+
+[node name="AequoraCity" type="Node2D"]
+
+# Cenário da cidade
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("3_background")
+position = Vector2(561, 701)
+scale = Vector2(1.0, 1.0)
+
+# Colisões da cidade
+[node name="Walls" type="StaticBody2D" parent="."]
+
+# Paredes externas da cidade
+[node name="NorthWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 100)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)
+
+[node name="SouthWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(561, 1300)
+shape = SubResource("collision_shape")
+scale = Vector2(35, 1)
+
+[node name="EastWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1050, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 20)
+
+[node name="WestWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(72, 701)
+shape = SubResource("collision_shape")
+scale = Vector2(1, 20)
+
+# Área central da praça (sem colisão para movimento livre)
+[node name="PlazaArea" type="Area2D" parent="."]
+position = Vector2(561, 701)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlazaArea"]
+shape = SubResource("collision_shape")
+scale = Vector2(15, 10)
+
+# Padaria
+[node name="Bakery" type="Area2D" parent="."]
+position = Vector2(400, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bakery"]
+shape = SubResource("collision_shape")
+scale = Vector2(3, 2)
+
+[node name="Sprite2D" type="ColorRect" parent="Bakery"]
+offset_left = -48.0
+offset_top = -32.0
+offset_right = 48.0
+offset_bottom = 32.0
+color = Color(0.8, 0.7, 0.5, 0.7)
+
+[node name="Label" type="Label" parent="Bakery"]
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -30.0
+text = "Padaria"
+horizontal_alignment = 1
+
+# Esposa do Padeiro (NPC inicial da missão)
+[node name="BakerWife" type="CharacterBody2D" parent="."]
+position = Vector2(450, 550)
+script = ExtResource("1_npc")
+npc_name = "Esposa do Padeiro"
+dialogue_id = "baker_wife_initial"
+
+[node name="Sprite2D" type="ColorRect" parent="BakerWife"]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = 32.0
+color = Color(0.9, 0.6, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BakerWife"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionArea" type="Area2D" parent="BakerWife"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BakerWife/InteractionArea"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionPrompt" type="Label" parent="BakerWife"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -30.0
+text = "Pressione E"
+horizontal_alignment = 1
+
+# Guarda (NPC inicial)
+[node name="Guard" type="CharacterBody2D" parent="."]
+position = Vector2(350, 550)
+script = ExtResource("1_npc")
+npc_name = "Guarda"
+dialogue_id = "guard_response"
+
+[node name="Sprite2D" type="ColorRect" parent="Guard"]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = 32.0
+color = Color(0.3, 0.3, 0.5, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guard"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionArea" type="Area2D" parent="Guard"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guard/InteractionArea"]
+shape = SubResource("collision_shape")
+
+[node name="InteractionPrompt" type="Label" parent="Guard"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -30.0
+text = "Pressione E"
+horizontal_alignment = 1
+
+# Ferreiro
+[node name="Blacksmith" type="Area2D" parent="."]
+position = Vector2(700, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blacksmith"]
+shape = SubResource("collision_shape")
+scale = Vector2(3, 2)
+
+[node name="Sprite2D" type="ColorRect" parent="Blacksmith"]
+offset_left = -48.0
+offset_top = -32.0
+offset_right = 48.0
+offset_bottom = 32.0
+color = Color(0.4, 0.3, 0.2, 0.7)
+
+[node name="Label" type="Label" parent="Blacksmith"]
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -30.0
+text = "Ferreiro"
+horizontal_alignment = 1
+
+# Portão da cidade (transição para floresta)
+[node name="CityGate" type="Area2D" parent="."]
+position = Vector2(561, 1250)
+script = ExtResource("2_area_trigger")
+trigger_id = "to_forest"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CityGate"]
+shape = SubResource("collision_shape")
+scale = Vector2(8, 1)
+
+[node name="Sprite2D" type="ColorRect" parent="CityGate"]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+color = Color(0.3, 0.3, 0.3, 0.5)
+
+[node name="Label" type="Label" parent="CityGate"]
+offset_left = -80.0
+offset_top = -40.0
+offset_right = 80.0
+offset_bottom = -20.0
+text = "Saída da Cidade"
+horizontal_alignment = 1
+
+# Guardas no portão
+[node name="GateGuard1" type="CharacterBody2D" parent="."]
+position = Vector2(500, 1280)
+script = ExtResource("1_npc")
+npc_name = "Guarda do Portão"
+dialogue_id = ""
+
+[node name="Sprite2D" type="ColorRect" parent="GateGuard1"]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = 32.0
+color = Color(0.3, 0.3, 0.5, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GateGuard1"]
+shape = SubResource("collision_shape")
+
+[node name="GateGuard2" type="CharacterBody2D" parent="."]
+position = Vector2(620, 1280)
+script = ExtResource("1_npc")
+npc_name = "Guarda do Portão"
+dialogue_id = ""
+
+[node name="Sprite2D" type="ColorRect" parent="GateGuard2"]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = 32.0
+color = Color(0.3, 0.3, 0.5, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GateGuard2"]
+shape = SubResource("collision_shape")
+
+# Caminho de volta para o castelo
+[node name="CastlePath" type="Area2D" parent="."]
+position = Vector2(561, 150)
+script = ExtResource("2_area_trigger")
+trigger_id = "to_castle_garden"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CastlePath"]
+shape = SubResource("collision_shape")
+scale = Vector2(5, 1)
+
+[node name="Label" type="Label" parent="CastlePath"]
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+text = "Voltar ao Castelo"
+horizontal_alignment = 1
